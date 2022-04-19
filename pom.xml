@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>kroc</artifactId>
+    <artifactId>ECBM</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <java.version>8</java.version>
