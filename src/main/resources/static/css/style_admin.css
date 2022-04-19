@@ -1,0 +1,410 @@
+@charset "UTF-8";
+/*Обнуление*/
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus, :active {
+    outline: none;
+}
+
+a:focus, a:active {
+    outline: none;
+}
+
+nav, footer, header, aside {
+    display: block;
+}
+
+html, body {
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/*---------*/
+
+.nav_upper{
+    width: 93%;
+    height: 100px;
+    background: #DACFCD;
+    border-radius: 20px;
+    margin: 3vh auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upper_left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+}
+
+.upper_right{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+    border-left:3px solid white;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.upper_right img:hover{
+    background: rgba(255, 255, 255, 0.33);
+    cursor: pointer;
+}
+
+.upper_unit{
+    height: 50%;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 25px;
+    margin: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 10px;
+
+}
+
+.name_menu{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    margin: 10vh 10% 0 10%;
+}
+
+
+.horiz_line{
+    height: 1px;
+    width: 83%;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 15px auto 0 auto;
+}
+
+.user_name{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    margin-left: 10%;
+    margin-top: 30px;
+    
+}
+
+#create_user{
+    background: #B47B7B;
+    border-radius: 10px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 25px;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 40px;
+    margin-right:10%;
+}
+
+#create_user:hover{
+    background: #2d2d2d;
+    color: white;
+    cursor: pointer;
+}
+
+.nameANDcreate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 20px auto 40px auto;
+}
+
+.unit{
+    width: 80%;
+    height: 62px;
+    border: 0.2px solid #000000;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.username_unit{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+    margin-left: 10px;
+}
+
+.image_unit{
+    width: 38px;
+    height: 38px;
+}
+
+.green_red{
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+
+.image_unit:hover{
+    cursor: pointer;
+    background: #f1ecec;
+    border-radius: 6px;
+}
+
+.enter_username, .enter_password{
+    display: flex;
+    justify-content: start;
+    margin: 30px 10% 40px 10%;
+    align-items: center;
+}
+
+.enter_main{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    color: #000000;
+    margin-right: 20px;
+    width: 230px;
+}
+
+.enter_enter{
+    background: #FFFFFF;
+    border: 0.4px solid #000000;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 353px;
+    height: 41px;
+    padding-left: 10px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.create_settings_user{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+
+.small_quadro{
+    height: 18px;
+    width: 18px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    margin-right: 20px;
+}
+
+.settings_text{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: #000000;
+}
+
+.safe_button{
+    width: 165px;
+    height: 42px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: black;
+    margin: 50px 0 30px 15%;
+    padding: 5px 10px;
+}
+
+.cancel_button{
+    width: 165px;
+    height: 42px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #000000;
+    border-radius: 5px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: white;
+    margin: 50px 0 30px 5%;
+    padding: 5px 10px;
+}
+
+.safe_button:hover{
+    background: #6c6c6c;
+    color: white;
+    cursor: pointer;
+}
+
+.cancel_button:hover{
+    background: #6c6c6c;
+    cursor: pointer ;
+}
+
+.delete_user_popup{
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 30%;
+    height: 40%;
+    box-shadow: 0 0 10px black;
+    font-family: Raleway;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.delete_user_popup .yes, .no{
+    display: inline-block;
+    border-radius: 30%;
+    max-height: 40px;
+    max-width: 60px;
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.yes{
+    background: #52731d;
+}
+
+.no{
+    background: firebrick;
+}
+
+.yes:hover, .no:hover{
+    background: #efebeb;
+    cursor: pointer;
+    color: black;
+}
+
+.butts{
+    display: flex;
+    width: 50%;
+    height: 20%;
+    justify-content: space-between;
+    margin: auto 0;
+}
+
+.delete_user_popup .warning{
+    margin: 10% 10% 20% 10%;
+    text-align: center;
+}
+
+.delete_user_popup_back{
+    z-index: 100;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#monitor:hover, #admin:hover{
+    background: rgba(255, 255, 255, 0.33);
+    cursor: pointer;
+}
+
+.upper_unit:hover {
+    background: rgba(255, 255, 255, 0.33);
+}
+
+.mismatch{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    margin-left: 10px;
+    color: red;
+}
+
+
+
+

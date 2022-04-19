@@ -1,0 +1,178 @@
+@charset "UTF-8";
+/*Обнуление*/
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:focus, :active {
+    outline: none;
+}
+
+a:focus, a:active {
+    outline: none;
+}
+
+nav, footer, header, aside {
+    display: block;
+}
+
+html, body {
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/*---------*/
+
+body{
+    background: rgb(255, 255, 255);
+}
+
+.au{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    margin: 25vh auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 7px;
+}
+
+.au1{
+    background: rgba(206, 206, 206, 0.4);
+    width: 300px;
+    height: 90px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10% auto 0 auto;
+}
+
+.au2{
+    background: #F0E1DE;
+    width: 300px;
+    height: 210px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 0 auto;
+}
+
+.au_text{
+    color: rgba(0, 0, 0, 0.66);
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    margin: 20px;
+    text-align: center;
+}
+
+.au_text_error{
+    color: rgb(196, 86, 101);
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 20px;
+    text-align: center;
+}
+
+.login, .pass{
+    width: 250px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.66);
+    border-radius: 7px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 18px;
+}
+
+.button_au{
+    width: 170px;
+    height: 40px;
+    background: #635F5E;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    font-family: Raleway;
+    font-style: normal;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.button_au:hover{
+    background: rgb(166, 164, 149);
+    color: #151515;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+

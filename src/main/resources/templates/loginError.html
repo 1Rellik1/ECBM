@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+    <meta charset="UTF-8">
+    <title>131313</title>
+    <link rel="stylesheet" type="text/css" href="css/style_auto.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style_admin.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style_mon.css"/>
+    <link rel="preconnect" type="text/css" href="https://fonts.googleapis.com">
+    <link rel="preconnect" type="text/css" href="https://fonts.gstatic.com" crossorigin>
+    <link type="text/css" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        let click_enter = function (e){
+           if(e.key == 'Enter' && login.value && password.value) {
+               button_au.click()
+               //window.removeEventListener('keydown', click_enter)
+           }
+        }
+        window.addEventListener('keydown',click_enter)
+    </script>
+
+</head>
+<body class="container" id="cont">
+<form method="POST" action="login">
+    <div class="au">
+        <div class="au1">
+            <div class="au_text_error">Логин или пароль неверны</div>
+        </div>
+        <div class="au2">
+
+            <input type="text" id="login" class="login" name="username" placeholder="Логин">
+            <input type="password" class="pass" id="password" name="password" placeholder="Пароль">
+            <button class="button_au" id="button_au" type="submit">Войти</button>
+
+        </div>
+    </div>
+</form>
+</body>
+</html>
