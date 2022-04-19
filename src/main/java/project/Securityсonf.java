@@ -30,6 +30,9 @@ public class Securityсonf extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
+                //Доступ разрешен всем пользователей
+//                .antMatchers("/index#adm").authenticated()
+//                .antMatchers("/index#mon").authenticated()
                 .antMatchers("/").authenticated()
                 .anyRequest().authenticated()
                 .and()

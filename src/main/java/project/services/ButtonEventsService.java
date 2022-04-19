@@ -50,32 +50,32 @@ public class ButtonEventsService {
             buttonsCondtionForFront.setNumber(i + 1);
             JSONObject jButton = jArray.getJSONObject(i);
             ButtonEvents button = GetButton(i);
-            if (jButton.getInt("BType") == 3) {
+            if (jButton.getInt("btype") == 3) {
                 if (button.getBtype() != 3)
                     accidentService.addAccident(button.getNumber());
                 buttonsCondtionForFront.setBtype(3);
                 button.setBtype(3);
-                button.setCounter3(jButton.getInt("Counter3"));
-                button.setCounter2(jButton.getInt("Counter2"));
-                button.setCounter1(jButton.getInt("Counter1"));
+                button.setCounter3(jButton.getInt("counter3"));
+                button.setCounter2(jButton.getInt("counter2"));
+                button.setCounter1(jButton.getInt("counter1"));
                 button.setTimestamp(new Timestamp(System.currentTimeMillis()));
-            } else if (jButton.getInt("BType") == 2) {
+            } else if (jButton.getInt("btype") == 2) {
                 if (button.getBtype() == 3)
                     accidentService.closeAccident(button.getNumber());
                 buttonsCondtionForFront.setBtype(2);
                 button.setBtype(2);
-                button.setCounter3(jButton.getInt("Counter3"));
-                button.setCounter2(jButton.getInt("Counter2"));
-                button.setCounter1(jButton.getInt("Counter1"));
+                button.setCounter3(jButton.getInt("counter3"));
+                button.setCounter2(jButton.getInt("counter2"));
+                button.setCounter1(jButton.getInt("counter1"));
                 button.setTimestamp(new Timestamp(System.currentTimeMillis()));
-            } else if (jButton.getInt("BType") == 1) {
+            } else if (jButton.getInt("btype") == 1) {
                 if (button.getBtype() == 3)
                     accidentService.closeAccident(button.getNumber());
                 buttonsCondtionForFront.setBtype(1);
                 button.setBtype(1);
-                button.setCounter3(jButton.getInt("Counter3"));
-                button.setCounter2(jButton.getInt("Counter2"));
-                button.setCounter1(jButton.getInt("Counter1"));
+                button.setCounter3(jButton.getInt("counter3"));
+                button.setCounter2(jButton.getInt("counter2"));
+                button.setCounter1(jButton.getInt("counter1"));
                 button.setTimestamp(new Timestamp(System.currentTimeMillis()));
             }
             conditionForFronts.add(buttonsCondtionForFront);
@@ -93,13 +93,18 @@ public class ButtonEventsService {
     }
 
     public void SaveButton(ButtonEvents button) {
-        session.beginTransaction();
+        session.clear();
+        try {
+            session.beginTransaction();
+        }
+        catch (Exception e){
+        }
         session.saveOrUpdate(button);
         session.getTransaction().commit();
     }
 
     public String getButtonFile() throws IOException {
-        URL url = new URL("http://c2-178-216-98-50.elastic.cloud.croc.ru:9721/ptzrestapi/states");
+        URL url = new URL("http://localhost:8081/buttons");
         URLConnection yc = url.openConnection();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(

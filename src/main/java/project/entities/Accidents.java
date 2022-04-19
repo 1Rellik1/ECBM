@@ -33,7 +33,7 @@ public class Accidents {
 
     @OneToOne
     @JoinColumn(name = "nextversion_id", referencedColumnName = "id")
-    private Accidents NextVersion_id;
+    private Accidents NextVersionId;
 
     @Column(name = "start_time")
     private LocalDateTime startTime;
@@ -93,12 +93,12 @@ public class Accidents {
         this.aTypeId = aTypeId;
     }
 
-    public Accidents getNextVersion_id() {
-        return NextVersion_id;
+    public Accidents getNextVersionId() {
+        return NextVersionId;
     }
 
-    public void setNextVersion_id(Accidents nextVersion_id) {
-        NextVersion_id = nextVersion_id;
+    public void setNextVersionId(Accidents nextVersionId) {
+        NextVersionId = nextVersionId;
     }
 
     public LocalDateTime getStartTime() {

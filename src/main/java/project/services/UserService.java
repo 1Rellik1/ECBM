@@ -1,6 +1,5 @@
 package project.services;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +71,8 @@ public class UserService implements UserDetailsService {
             session.getTransaction().commit();
         }
         catch (Exception e){
+            session.clear();
+            session.getTransaction().commit();
             return "Пользователь с таких именем уже существует";
         }
         return "пользователь добавлен";
@@ -111,23 +112,24 @@ public class UserService implements UserDetailsService {
             return "Нельзя удалить текущего пользователя";
         }
         String access = temp.getAccesslist();
-        int counter=0;
+        Boolean onlyAdmin=true;
+        Boolean notAdmin=true;
         if(access.charAt(0)=='1'){
+            notAdmin=false;
             List<UserEntity> userlist = session.createQuery("SELECT m from UserEntity m", UserEntity.class).getResultList();
                 for (UserEntity i:userlist){
                     if(i.getAccesslist() != null)
-                        if( i.getAccesslist().charAt(0)=='1')
-                            counter++;
+                        if( i.getAccesslist().charAt(0)=='1' )
+                            onlyAdmin=false;
                 }
         }
-        if (counter>1) {
+        if (!onlyAdmin || notAdmin) {
             this.session.clear();
             this.session.beginTransaction();
             this.session.delete(temp);
             this.session.getTransaction().commit();
             return UserService.deleteMassage;
         }
-
         else return UserService.errorDeleteMassage;
     }
 
