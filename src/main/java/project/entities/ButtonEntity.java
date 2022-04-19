@@ -1,4 +1,4 @@
-package croc.entities;
+package project.entities;
 
 
 import javax.persistence.*;
