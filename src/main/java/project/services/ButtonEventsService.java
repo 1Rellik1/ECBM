@@ -104,7 +104,7 @@ public class ButtonEventsService {
     }
 
     public String getButtonFile() throws IOException {
-        URL url = new URL("http://localhost:8081/buttons");
+        URL url = new URL("https://emukurs.herokuapp.com/buttons");
         URLConnection yc = url.openConnection();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
