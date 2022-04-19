@@ -21,20 +21,39 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервис для работы с происшествиями
+ */
 @Service
 public class AccidentService {
+    //Сервис для работы с блоками кнопок
     private final ButtonService buttonService;
+    //Фабрика сессий
     protected SessionFactory sessionFactory;
+    //Сессия
     private Session session;
+    //Билдер критериев запроса
     private CriteriaBuilder builder;
+    //Запрос по критериям
     private CriteriaQuery<Accidents> timeCriteriaQuery;
+    //Корневая сущность запроса
     private Root<Accidents> root;
 
+    /**
+     * Конструктора
+     * @param sessionFactory
+     * фабрика сессий
+     * @param buttonService
+     * сервис для работы с блоками кнопок
+     */
     public AccidentService(SessionFactory sessionFactory, ButtonService buttonService) {
         this.sessionFactory = sessionFactory;
         this.buttonService = buttonService;
     }
 
+    /**
+     * Постконструктор
+     */
     @PostConstruct
     public void init() {
         session = sessionFactory.openSession();
@@ -43,11 +62,21 @@ public class AccidentService {
         root = timeCriteriaQuery.from(Accidents.class);
     }
 
+    /**
+     * Предестройер
+     */
     @PreDestroy
     public void unSession() {
         session.close();
     }
 
+    /**
+     * метод возвращающий все происшествия в заданом промежутке
+     * @param accident
+     * ДТО сущность, в которой передается промежуток происшестувий для вывода
+     * @return
+     * список происшествий в заданном промежутке
+     */
     public  List<Accidents> getAccidents(AccidentToFind accident) {
         List<Accidents> listOfAccidents = this.session.createQuery("SELECT m from Accidents m where m.NextVersionId is null order by m.startTime desc", Accidents.class).list();
         if (listOfAccidents.size() > 0) {
@@ -57,10 +86,22 @@ public class AccidentService {
         } else return listOfAccidents;
     }
 
+    /**
+     * метод возвращаю общее кол-во происшествий сохраненных в системе
+     * @return
+     * количество происшествий
+     */
     public Long getAccidentsNumber() {
         return session.createQuery("SELECT count(m) from Accidents m where m.NextVersionId is null", java.lang.Long.class).getSingleResult();
     }
 
+    /**
+     * Фильтрованные происшествия
+     * @param accident
+     * Дто сущность, в которой передаются параметры фильтрации
+     * @return
+     * Отфильтрованные происшествия
+     */
     public List<Object>  getAccidentsFiltered(AccidentToFind accident) {
         List<Accidents> resultList = null;
         Long number=null;
@@ -125,6 +166,13 @@ public class AccidentService {
         return entitiesWithNumber;
     }
 
+    /**
+     * Получение предыдущих состояний происшествия
+     * @param accident
+     * Дто сущность, в которой передается идентификатор сущности, для которой мы ищем предыдущие состояния
+     * @return
+     * предыдущие состояния происшествия
+     */
     public Accidents getPreviousStates(AccidentToFind accident) {
         Predicate[] predicates = new Predicate[2];
         Accidents latest_accident = session.load(Accidents.class, accident.getId());
@@ -140,6 +188,11 @@ public class AccidentService {
         return first_state;
     }
 
+    /**
+     * Добавление происшествия
+     * @param number
+     * номер блока кнопок
+     */
     public void addAccident(int number) {
         List<ButtonEntity> buttonWithPosts = buttonService.getButton(number);
         for (ButtonEntity button : buttonWithPosts) {
@@ -160,6 +213,11 @@ public class AccidentService {
         }
     }
 
+    /**
+     * Закрытие происшествия
+     * @param number
+     * номер блока кнопок
+     */
     public void closeAccident(int number) {
         List<ButtonEntity> buttonWithPosts = buttonService.getButton(number);
         for (ButtonEntity button : buttonWithPosts) {
@@ -183,7 +241,7 @@ public class AccidentService {
                 newAccident.setTimestamp(LocalDateTime.now());
                 newAccident.setEndTime(LocalDateTime.now());
                 newAccident.setPost(latestAccident.getPost());
-                newAccident.setUsername("Инцидент устранен");
+                newAccident.setUsername("инцидент устранен");
                 newAccident.setBEventId(latestAccident.getBEventId());
                 newAccident.setATypeId(latestAccident.getATypeId());
                 session.clear();
@@ -196,6 +254,11 @@ public class AccidentService {
         }
     }
 
+    /**
+     * метод для редактирования происшествий
+     * @param accidents
+     *   Дто сущность, в которой передаются обновленные параметры
+     */
     public void updateAccident(AccidentToFind accidents) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();

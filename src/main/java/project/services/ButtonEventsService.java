@@ -19,29 +19,54 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Сервис для работы с состоянием постов
+ */
 @Service
 public class ButtonEventsService {
+    //Сервис для работы с происшествиями
     private final AccidentService accidentService;
+    //Фабрика сессий
     protected SessionFactory sessionFactory;
+    //Сессия
     private Session session;
 
+    /**
+     * Конструктора
+     * @param sessionFactory
+     * фабрика сессий
+     * @param accidentService
+     * сервис для работы с происшествиями
+     */
     public ButtonEventsService(SessionFactory sessionFactory, AccidentService accidentService) {
         this.sessionFactory = sessionFactory;
         this.accidentService = accidentService;
     }
 
+    /**
+     * Постконструктор
+     */
     @PostConstruct
     public void init() {
         session = sessionFactory.openSession();
 
     }
 
+    /**
+     * Предестройер
+     */
     @PreDestroy
     public void unSession() {
         session.close();
     }
 
+    /**
+     * Получение состояния постов и создание происшествия при необходимости
+     * @return
+     * состояние постов
+     * @throws IOException
+     * при неудаче получения данных с датчиков
+     */
     public List<ButtonsCondtionForFront> getButtonConditions() throws IOException {
         List<ButtonsCondtionForFront> conditionForFronts = new ArrayList<>();
         JSONArray jArray = new JSONArray(this.getButtonFile());
@@ -84,6 +109,13 @@ public class ButtonEventsService {
         return conditionForFronts;
     }
 
+    /**
+     * получения блока кнопок по номеру
+     * @param number
+     * номер блока кнопок
+     * @return
+     * блок кнопок
+     */
     public ButtonEvents GetButton(int number) {
         List<ButtonEvents> check = session.createQuery("select m from ButtonEvents m where m.number='" + number + "'", ButtonEvents.class).list();
         if (check.size() == 0) {
@@ -92,6 +124,11 @@ public class ButtonEventsService {
             return check.get(0);
     }
 
+    /**
+     * сохранение состояния поста
+     * @param button
+     * состояние поста
+     */
     public void SaveButton(ButtonEvents button) {
         session.clear();
         try {
@@ -103,6 +140,13 @@ public class ButtonEventsService {
         session.getTransaction().commit();
     }
 
+    /**
+     * Получение файла с состоянием постов
+     * @return
+     * состояния постов
+     * @throws IOException
+     * при неудаче получения данных
+     */
     public String getButtonFile() throws IOException {
         URL url = new URL("https://emukurs.herokuapp.com/buttons");
         URLConnection yc = url.openConnection();

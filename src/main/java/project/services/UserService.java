@@ -19,23 +19,42 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Сервис работы с пользователями
+ */
 @Service
 public class UserService implements UserDetailsService {
+    //Сообщение о невозможности удалить пользователя
     private static final String errorDeleteMassage = "Пользователь не может быть удален";
+    //Сообщение об удаление пользователя
     private static final String deleteMassage = "Пользователь удален";
+    //Фабрика сессий
     @Autowired
     protected SessionFactory sessionFactory;
+    //Хэш кодировщик
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+    //Сессия
     private Session session;
+    //Билдер критериев запроса
     private CriteriaBuilder builder;
+    //Запрос по критериям
     private CriteriaQuery<UserEntity> timeCriteriaQuery;
+    //Корневая сущность запроса
     private Root<UserEntity> root;
 
+    /**
+     * Конструктора
+     * @param sessionFactory
+     * фабрика сессий
+     */
     public UserService(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Постконструктор
+     */
     @PostConstruct
     public void init() {
         session = sessionFactory.openSession();
@@ -44,19 +63,41 @@ public class UserService implements UserDetailsService {
         root = timeCriteriaQuery.from(UserEntity.class);
     }
 
+    /**
+     * Предестройер
+     */
     @PreDestroy
     public void unSession() {
         session.close();
     }
 
+    /**
+     * Получение всех пользователей
+     * @return
+     * список пользователей
+     */
     public List<UserEntity> getUsers() {
         return session.createQuery("SELECT m from UserEntity m", UserEntity.class).getResultList();
     }
 
+    /**
+     * Получение пользователя по идентификатору
+     * @param userToFind
+     * Дто сущность пользователя с его идентификатором
+     * @return
+     * найденный пользователь
+     */
     public UserEntity getUser(UserToFind userToFind) {
         return session.load(UserEntity.class, userToFind.getId());
     }
 
+    /**
+     * Добавление пользователя
+     * @param user
+     * Дто сущность с данными нового пользователя
+     * @return
+     * сообщение о результате добавления
+     */
     public String addUser(UserEntity user) {
         List<UserEntity> userlist = session.createQuery("SELECT m from UserEntity m", UserEntity.class).getResultList();
         UserEntity userfromdb = userlist.get(userlist.size() - 1);
@@ -78,6 +119,13 @@ public class UserService implements UserDetailsService {
         return "пользователь добавлен";
     }
 
+    /**
+     * Обновление данных пользователя
+     * @param user
+     * Дто сущность с обновленными данными пользователя
+     * @return
+     * результат обновления
+     */
     public String updateUser(UserToFind user) {
    UserEntity temp = session.load(UserEntity.class, user.getId());
     int counter=0;
@@ -105,6 +153,13 @@ public class UserService implements UserDetailsService {
     else return "Пользователь с таким именем уже существует";
     }
 
+    /**
+     * Удаление пользователя
+     * @param user
+     * Дто сущность пользователя с его идентификатором
+     * @return
+     * результат удаления
+     */
     public String deleteUser(UserToFind user) {
         UserEntity temp = session.load(UserEntity.class, user.getId());
         UserEntity principal = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -133,24 +188,15 @@ public class UserService implements UserDetailsService {
         else return UserService.errorDeleteMassage;
     }
 
-    public Object checkAuth(UserToFind userForAuth) {
-        Boolean authed = false;
-        List<UserEntity> users = session.createQuery(timeCriteriaQuery.select(root).where(builder.equal(root.get("name"), userForAuth.getName()))).getResultList();
-        if (users.size() == 0) {
-            return ("User not found");
-        } else {
-            for (UserEntity user : users) {
-                if (bCryptPasswordEncoder.matches(userForAuth.getPwd(), user.getPwd())) {
-                    authed = true;
-                }
-            }
-        }
-        if (authed)
-            return ("Логин и пароль введены верно");
-        else
-            return "Smth is wrong";
-    }
-
+    /**
+     * Получение пользователя по его имени
+     * @param s
+     * имя пользователя
+     * @return
+     * Данные пользователя
+     * @throws UsernameNotFoundException
+     * Если пользователь не был найден
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         List<UserEntity> users = session.createQuery(timeCriteriaQuery.select(root).where(builder.equal(root.get("name"), s))).getResultList();

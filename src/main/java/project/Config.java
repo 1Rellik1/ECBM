@@ -12,11 +12,20 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Конфигурация взаимодействия с бд
+ */
 @Configuration
 public class Config {
+    //url бд
     @Value("${spring.datasource.url}")
     String url;
 
+    /**
+     * Конфигурация бина для взаимодействия с бд
+     * @return
+     * датасорс
+     */
     @Bean
     public HikariDataSource dataSource() {
         HikariConfig config = new HikariConfig();
@@ -29,6 +38,13 @@ public class Config {
         return new HikariDataSource(config);
     }
 
+    /**
+     * конфигурация бина сессий
+     * @param dataSource
+     * датасорс
+     * @return
+     * бин сессий
+     */
     @Bean
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
@@ -40,7 +56,13 @@ public class Config {
         return factoryBean;
     }
 
-
+    /**
+     * конфигурация бина тразнакций
+     * @param factoryBean
+     * бин сессий
+     * @return
+     * менеджер транзакций
+     */
     @Bean
     public PlatformTransactionManager platformTransactionManager(LocalSessionFactoryBean factoryBean) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
